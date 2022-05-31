@@ -3,17 +3,31 @@
 /* To detect a " when parsing
 Goal is create t_args-> array of args */
 
-void	ft_dquote(char **output, int i)
+char	*ft_dquote(char *output, int i)
 {
 	char	*buff;
+	int		c;
 
-	buff = readline("dquote> "); 
-	// while (*buff) //need to elab
-	// {
-	// 	if (*buff != '"')
-	// 		*(output)[i++] = *buff;
-	// 	buff++;
-	// }
+	c = 0;
+	buff = readline("dquote> ");
+	//need to give output more memory
+	realloc(output, ft_strlen(buff));
+	while (*buff)
+	{
+		if (*buff == '"')
+		{
+			buff++;
+			c++;
+		}
+		output[i++] = *buff;
+		buff++;
+	}
+	//if not closed quotes... or another open quote
+	if (c = 0 || c % 2 != 0)
+	{
+		//do realloc/dquote again
+	}
+	return (output);
 }
 
 
@@ -39,8 +53,12 @@ char	*ft_proceed(char **input)
 			if (**input == '"')
 				(*input)++;
 			else 
-				ft_dquote(&output, &i);
-			break;
+			{
+				output = ft_dquote(output, i);
+				i = ft_strlen(output);
+			}
+			if (**input == 32)
+				break;
 		}
 		(*input)++;
 		if (**input == 32)
