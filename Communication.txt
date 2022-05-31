@@ -1,7 +1,5 @@
 30 May
--work on struct in the header file
--work on displaying a prompt in different dir
+-work on struct in the header file (X)
+-work on displaying a prompt in different dir (X)
 -work on ""
 
-
-Forgot the Makefile!

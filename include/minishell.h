@@ -31,15 +31,32 @@
 
 #define ERROR_127 127
 // structs => We need a Command Table
+typedef struct	s_args
+{
+	//bool	pipes;
+	int nbr_pipes;
+	//bool	endline;
+	int	nbr_endline;
+	char **args;	
+}				t_args; 
+/* so first we read the args(input from readline)
+then split into args, fill out pipes endline ect.
+and then create tokens
+*/
+
 typedef struct	s_token
 {
 	char	*cmd;
 	char	**args;
+	t_token	*next;
 }				t_token;
+/*tokens have cmd, and args (optional)
+next is pointing to next for link list
+*/
 
 typedef struct 	s_minishell
 {
-
+	t_token		*head; //pointing to the first token
 }				t_minishell;
 
 // ********** PROTOTYPES  ***********
