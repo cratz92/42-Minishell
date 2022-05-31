@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void handle_ctrlc(int sig)
 {
@@ -24,15 +24,17 @@ void handle_ctrlc(int sig)
 
 void init(int argc, char *argv[], char *envp[])
 {
-	char *cmd_buff;
-	char *cmd;
-	(void)argv;
+	char	*cmd_buff;
+	char	*cmd;
+	(void)	argv;
+	char	prompt[241];
 
 	cmd = NULL;
 	while (1)
 	{
 		// read stdin
-		cmd_buff = readline("minishell$> ");
+		getcwd(prompt, 242);
+		cmd_buff = readline(ft_prompt(prompt));
 		// printf("%s \n", cmd_buff);
 
 		if (!cmd_buff)

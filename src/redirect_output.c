@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 // fd 0 = STDIN_FILENO
 // fd 1 = STDOUT_FILENO

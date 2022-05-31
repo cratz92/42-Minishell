@@ -31,6 +31,16 @@
 
 #define ERROR_127 127
 // structs => We need a Command Table
+typedef struct	s_token
+{
+	char	*cmd;
+	char	**args;
+}				t_token;
+
+typedef struct 	s_minishell
+{
+
+}				t_minishell;
 
 // ********** PROTOTYPES  ***********
 // minishell.c
@@ -50,5 +60,8 @@ int ft_pipe(char **cmd, char **envp);
 
 // redirection_output
 int redirection(char **cmd, char **envp);
+
+//prompt
+char	*ft_prompt(char *str);
 
 #endif
