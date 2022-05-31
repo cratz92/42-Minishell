@@ -3,15 +3,13 @@
 /* To detect a " when parsing
 Goal is create t_args-> array of args */
 
-char	*ft_dquote(char *output, int i)
+void	ft_dquote(char **output, int i)
 {
 	char	*buff;
 	int		c;
 
 	c = 0;
 	buff = readline("dquote> ");
-	//need to give output more memory
-	realloc(output, ft_strlen(buff));
 	while (*buff)
 	{
 		if (*buff == '"')
@@ -19,15 +17,13 @@ char	*ft_dquote(char *output, int i)
 			buff++;
 			c++;
 		}
-		output[i++] = *buff;
+		(*output)[i++] = *buff;
 		buff++;
 	}
-	//if not closed quotes... or another open quote
-	if (c = 0 || c % 2 != 0)
+	if (c % 2 == 1) //MY MATH needs work
 	{
-		//do realloc/dquote again
+		// ft_dquote(output, i);
 	}
-	return (output);
 }
 
 
@@ -54,7 +50,7 @@ char	*ft_proceed(char **input)
 				(*input)++;
 			else 
 			{
-				output = ft_dquote(output, i);
+				ft_dquote(&output, i);
 				i = ft_strlen(output);
 			}
 			if (**input == 32)
