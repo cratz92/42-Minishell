@@ -38,8 +38,8 @@ typedef struct	s_args
 	int nbr_pipes;
 	//bool	endline;
 	int	nbr_endline;
-	char **args;	
-}				t_args; 
+	char **args;
+}				t_args;
 /* so first we read the args(input from readline)
 then split into args, fill out pipes endline ect.
 and then create tokens
@@ -79,7 +79,17 @@ int ft_pipe(char **cmd, char **envp);
 // redirection_output
 int redirection(char **cmd, char **envp);
 
-//prompt
-char	*ft_prompt(char *str);
+//prompt.c
+char *ft_prompt(char *str);
+
+//detective
+t_args *ft_cmd_to_args(char *str);
+
+
+//newutils.c
+char  *ft_strldup(char *str, int l);
+char  *ft_strfdup(char **str, int f);
+
+void  print_targs(t_args *a);
 
 #endif

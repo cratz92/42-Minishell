@@ -39,6 +39,8 @@ void init(int argc, char *argv[], char *envp[])
 
 		if (!cmd_buff)
 			break;
+		//cmd_buf to t_args
+		ft_cmd_to_args(cmd_buff);
 
 		if (!ft_strncmp(cmd_buff, "exit", 5))
 			break;
