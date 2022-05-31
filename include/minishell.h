@@ -31,6 +31,7 @@
 
 #define ERROR_127 127
 // structs => We need a Command Table
+typedef struct t_token;
 typedef struct	s_args
 {
 	//bool	pipes;
@@ -48,7 +49,7 @@ typedef struct	s_token
 {
 	char	*cmd;
 	char	**args;
-	t_token	*next;
+	struct t_token	*next;
 }				t_token;
 /*tokens have cmd, and args (optional)
 next is pointing to next for link list
