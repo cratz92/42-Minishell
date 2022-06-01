@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+
+// still need to refactor this function
 void *parse_args(char *str, char *envp[])
 {
     char **temp;
@@ -22,10 +24,26 @@ void *parse_args(char *str, char *envp[])
     if (temp[1] != NULL)
         ft_pipe(temp, envp);
     temp = NULL;
-    temp = ft_split(str, '>');
+    temp = ft_split(str, '>>');
     if (temp[1] != NULL)
-        redirection(temp, envp);
-    else
+        ft_append(temp, envp);
+    else {
+        temp = NULL;
+        temp = ft_split(str, '>');
+        if (temp[1] != NULL)
+            redirection_out(temp, envp);
+    }
+    temp = NULL;
+    temp = ft_split(str, '<<');
+    if (temp[1] != NULL)
+        ft_heredoc(temp, envp);
+    else {
+        temp = NULL;
+        temp = ft_split(str, '<');
+        if (temp[1] != NULL)
+            redirection_in(temp, envp);
+    }
+    if (temp[1] == NULL)
     {
         temp = ft_split(str, ' ');
         command_execution(temp, envp);
