@@ -3,27 +3,28 @@
 /* To detect a " when parsing
 Goal is create t_args-> array of args */
 
-void	ft_dquote(char **output, int i)
+void	ft_dquote(char **output)
 {
 	char	*buff;
-	int		c;
+	bool	even_quotation;
+	int		i;
 
-	c = 0;
+	i = ft_strlen(*output);
+	even_quotation = false; //flag: we have already 1 ", we need an even number of "
 	buff = readline("dquote> ");
 	while (*buff)
 	{
 		if (*buff == '"')
 		{
 			buff++;
-			c++;
+			even_quotation = !even_quotation;
 		}
 		(*output)[i++] = *buff;
 		buff++;
 	}
-	if (c % 2 == 1) //MY MATH needs work
-	{
-		// ft_dquote(output, i);
-	}
+	if (even_quotation == false)
+		ft_dquote(output);
+	//there is some bug if you make too many dquotes i think..........
 }
 
 
@@ -50,7 +51,7 @@ char	*ft_proceed(char **input)
 				(*input)++;
 			else 
 			{
-				ft_dquote(&output, i);
+				ft_dquote(&output);
 				i = ft_strlen(output);
 			}
 			if (**input == 32)
@@ -64,15 +65,6 @@ char	*ft_proceed(char **input)
 	return (output);
 }
 
-
-
-
-/* main
--count quotes if > 0
--if %2 != 0 -> ft_dquote
--if
-*/
-
 void	init_targs(t_args **arg)
 {
 	(*arg) = malloc(sizeof(t_args));
@@ -85,34 +77,18 @@ t_args	*ft_cmd_to_args(char *str)
 {
 	t_args	*targ;
 	int		i;
-	char	*cpy;
+	char	**cpy;
 
-	
-	printf("WE ARE Here\n");
-	printf("%s |\n", str);
 	init_targs(&targ);
-	// printf("targ: %d, \n", targ->nbr_pipes);
+	targ->args = malloc(sizeof(char) * 1000); //this can improve
 	i = 0;
 	while (*str)
 	{
 		while (*str == 32)
 			str++;
-		printf("%s -\n", ft_proceed(&str));
-    	// printf("cpied|%s| -> |%s|\n", cpy, str);
+		targ->args[i] = malloc(sizeof(char) * ft_strlen(str));
+		targ->args[i++] = ft_proceed(&str);
 	}
-
 	// print_targs(targ);
-	// printf("we found %d |\n", bk);
-	// if (ft_scan_for_quotes(str) == 0)
-		//duplicate arg
-	// else
-	return (targ);
+	return (0);
 }
-
-
-/* EXAMPLES TO MIND
-✗ echo terminal"love"
-terminallove
-✗ echo terminal"this is a love"
-terminalthis is a love
-*/
