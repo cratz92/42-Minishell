@@ -33,6 +33,14 @@
 #define ERROR_127 127
 // structs => We need a Command Table
 
+typedef enum	s_type
+{
+	IS_PIPE,
+	IS_RDR, //riderection
+	IS_CMD, //command
+}				t_type;
+
+
 typedef struct	s_args
 {
 	//bool	pipes;
@@ -100,5 +108,7 @@ void  print_targs(t_args *a);
 int redirection_in(char **cmd, char **envp);
 int ft_heredoc(char **cmd, char **envp);
 
+//enum
+void ft_evaluate_args(t_args **arg);
 
 #endif

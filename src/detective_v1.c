@@ -37,6 +37,7 @@ char	*ft_proceed(char **input)
 	i = 0;
 	while (**input)
 	{
+		//if (> >> << |) ...
 		if (**input != '"')
 			output[i++] = **input;
 		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
@@ -90,5 +91,5 @@ t_args	*ft_cmd_to_args(char *str)
 		targ->args[i++] = ft_proceed(&str);
 	}
 	// print_targs(targ);
-	return (0);
+	return (targ);
 }

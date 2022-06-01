@@ -47,6 +47,8 @@ void  print_targs(t_args *a)
 
   i = 0;
   // printf("nbr_pipes=%d nbr_endline=%d\n", a->nbr_pipes, a->nbr_endline);
+  printf("----*\n");
   while(a->args[i])
-    printf("|%s|\n", a->args[i++]);
+    printf("%s\n", a->args[i++]);
+  printf("----*\n");
 }
