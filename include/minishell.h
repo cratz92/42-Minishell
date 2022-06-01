@@ -96,8 +96,8 @@ void  print_targs(t_args *a);
 
 // temporary files
 // redirect_input_v1.c
-//int redirection_in(char **cmd, char **envp);
-//int ft_heredoc(char **cmd, char **envp);
+int redirection_in(char **cmd, char **envp);
+int ft_heredoc(char **cmd, char **envp);
 
 
 #endif
