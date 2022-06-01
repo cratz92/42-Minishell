@@ -77,7 +77,8 @@ void *parse_args(char *str, char *envp[]);
 int ft_pipe(char **cmd, char **envp);
 
 // redirection_output
-int redirection(char **cmd, char **envp);
+int redirection_out(char **cmd, char **envp);
+int ft_append(char **cmd, char **envp);
 
 //prompt.c
 char *ft_prompt(char *str);
@@ -91,5 +92,12 @@ char  *ft_strldup(char *str, int l);
 char  *ft_strfdup(char **str, int f);
 
 void  print_targs(t_args *a);
+
+
+// temporary files
+// redirect_input_v1.c
+//int redirection_in(char **cmd, char **envp);
+//int ft_heredoc(char **cmd, char **envp);
+
 
 #endif
