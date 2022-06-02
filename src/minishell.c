@@ -28,6 +28,7 @@ void init(int argc, char *argv[], char *envp[])
 	char	*cmd;
 	(void)	argv;
 	char	prompt[241];
+	t_args	*arg; //can replace the *cmd
 
 	cmd = NULL;
 	while (1)
@@ -40,7 +41,8 @@ void init(int argc, char *argv[], char *envp[])
 		if (!cmd_buff)
 			break;
 		//cmd_buf to t_args
-		ft_cmd_to_args(cmd_buff);
+		arg = ft_cmd_to_args(cmd_buff);
+		ft_evaluate_args(&arg); //ready for parsing of arguments
 
 		if (!ft_strncmp(cmd_buff, "exit", 5))
 			break;
