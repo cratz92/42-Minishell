@@ -43,11 +43,9 @@ typedef enum	s_type
 
 typedef struct	s_args
 {
-	//bool	pipes;
-	int nbr_pipes;
-	//bool	endline;
-	int	nbr_endline;
-	char **args;
+	int		nbr_pipes; //bool	pipes;
+	int		nbr_endline; //bool	endline;
+	char	**args;
 }				t_args;
 /* so first we read the args(input from readline)
 then split into args, fill out pipes endline ect.
@@ -58,7 +56,9 @@ typedef struct	s_token
 {
 	char	*cmd;
 	char	**args;
+	t_type	en;
 	struct s_token	*next;
+	struct s_token	*prev;
 }				t_token;
 /*tokens have cmd, and args (optional)
 next is pointing to next for link list
@@ -97,11 +97,12 @@ t_args *ft_cmd_to_args(char *str);
 
 
 //newutils.c
-char  *ft_strldup(char *str, int l);
-char  *ft_strfdup(char **str, int f);
+char	*ft_strldup(char *str, int l);
+char	*ft_strfdup(char **str, int f);
+int		ft_strlook(char *str);
 
-void  print_targs(t_args *a);
-
+void 	print_targs(t_args *a);
+void 	print_tkn(t_token *t);
 
 // temporary files
 // redirect_input_v1.c
@@ -109,6 +110,6 @@ int redirection_in(char **cmd, char **envp);
 int ft_heredoc(char **cmd, char **envp);
 
 //enum
-void ft_evaluate_args(t_args **arg);
+t_token *ft_evaluate_args_to_token(t_args *a);
 
 #endif

@@ -28,21 +28,24 @@ void init(int argc, char *argv[], char *envp[])
 	char	*cmd;
 	(void)	argv;
 	char	prompt[241];
-	t_args	*arg; //can replace the *cmd
+	t_args	*arg; //to replace the *cmd
+	t_minishell	*shell;
 
 	cmd = NULL;
+	shell = malloc(sizeof(t_minishell));
 	while (1)
 	{
 		// read stdin
 		getcwd(prompt, 242);
 		cmd_buff = readline(ft_prompt(prompt));
-		// printf("%s \n", cmd_buff);
 
 		if (!cmd_buff)
 			break;
+		
 		//cmd_buf to t_args
 		arg = ft_cmd_to_args(cmd_buff);
-		ft_evaluate_args(&arg); //ready for parsing of arguments
+		shell->head = ft_evaluate_args_to_token(arg); 
+		print_tkn(shell->head); //TOKENS ARE READY to parse
 
 		if (!ft_strncmp(cmd_buff, "exit", 5))
 			break;

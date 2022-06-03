@@ -38,7 +38,16 @@ char  *ft_strfdup(char **str, int f)
   return (out);
 }
 
-
+int ft_strlook(char *str)
+{
+  while (*str)
+  {
+    if (*str == '>' || *str == '>' || *str == '|') // ... >> <<
+      return (1);
+    str++;
+  }
+  return (0);
+}
 
 //printing utils for debugging
 void  print_targs(t_args *a)
@@ -49,6 +58,28 @@ void  print_targs(t_args *a)
   // printf("nbr_pipes=%d nbr_endline=%d\n", a->nbr_pipes, a->nbr_endline);
   printf("----*\n");
   while(a->args[i])
+  {
     printf("%s\n", a->args[i++]);
+  }
   printf("----*\n");
 }
+
+void  print_tkn(t_token *t)
+{
+  int i;
+
+  i = 0;
+  printf("----*\n");
+  printf("CMD:%s|%d\n----\n", t->cmd, t->en);
+  while(t->args[i])
+  {
+    printf("%s\n", t->args[i++]);
+  }
+  printf("----*\n");
+  if (t->next)
+  {
+    printf("NEXT*\n");
+    print_tkn(t->next);
+  }
+}
+

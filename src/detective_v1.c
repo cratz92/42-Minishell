@@ -37,7 +37,18 @@ char	*ft_proceed(char **input)
 	i = 0;
 	while (**input)
 	{
-		//if (> >> << |) ...
+		//if (> < |) ... << >>
+		if (**input == '>' || **input == '>' || **input == '|') // ... >> <<
+		{
+			if (output[i - 1] == 0) 
+			{
+				output[i++] = **input;
+				(*input)++;
+				break;
+			}
+			else
+				break;
+		}
 		if (**input != '"')
 			output[i++] = **input;
 		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
@@ -71,7 +82,7 @@ void	init_targs(t_args **arg)
 	(*arg) = malloc(sizeof(t_args));
 	(*arg)->nbr_pipes = 0;
 	(*arg)->nbr_endline = 0;
-	(*arg)->args = NULL; //?maybe this is meaninless - NULL
+	(*arg)->args = NULL;
 }
 
 t_args	*ft_cmd_to_args(char *str)
