@@ -12,3 +12,6 @@
 2 June
 -Token are linked, have CMDS and ARGS and now need to be parsed.
 -need to solve >>, mañana
+
+4 June
+-working on local variables, ie; helloworld="say hello" = echo $helloworld

@@ -41,6 +41,16 @@ typedef enum	s_type
 }				t_type;
 
 
+typedef struct	s_var
+{
+	char			*name;
+	char			*content;
+	struct s_var	*next;
+}				t_var;
+/* local variables when myname=name 
+are stored as a variable, outputed as $myname
+*/
+
 typedef struct	s_args
 {
 	int		nbr_pipes; //bool	pipes;
@@ -49,7 +59,7 @@ typedef struct	s_args
 }				t_args;
 /* so first we read the args(input from readline)
 then split into args, fill out pipes endline ect.
-and then create tokens
+and then create tokens or local variable
 */
 
 typedef struct	s_token
@@ -64,9 +74,11 @@ typedef struct	s_token
 next is pointing to next for link list
 */
 
+
 typedef struct 	s_minishell
 {
 	t_token		*head; //pointing to the first token
+	t_var		*var;
 }				t_minishell;
 
 // ********** PROTOTYPES  ***********
@@ -99,10 +111,12 @@ t_args *ft_cmd_to_args(char *str);
 //newutils.c
 char	*ft_strldup(char *str, int l);
 char	*ft_strfdup(char **str, int f);
-int		ft_strlook(char *str);
+bool 	ft_strlook(char *str, char *look);
 
 void 	print_targs(t_args *a);
 void 	print_tkn(t_token *t);
+void  	print_var(t_var *v);
+
 
 // temporary files
 // redirect_input_v1.c
@@ -111,5 +125,9 @@ int ft_heredoc(char **cmd, char **envp);
 
 //enum
 t_token *ft_evaluate_args_to_token(t_args *a);
+
+
+//variables
+void	check_token_to_variables(t_minishell **shell);
 
 #endif

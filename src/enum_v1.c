@@ -36,8 +36,8 @@ t_token *ft_evalute_single_token(char **a, int *i)
     else
         tkn->en = 3;
     j++;
-    if (ft_strlook(a[j - 1]) != 1)
-        while (a[j] && ft_strlook(a[j]) != 1)
+    if (ft_strlook(a[j - 1], "<>|") != 1)
+        while (a[j] && ft_strlook(a[j], "<>|") != 1)
             tkn->args[k++] = a[j++];
     tkn->args[k] = 0;
     *i = j;
@@ -54,7 +54,7 @@ t_token *ft_evaluate_args_to_token(t_args *a)
     i = 0;
     head = ft_evalute_single_token(a->args, &i);
         // print_tkn(head);
-    printf("i is %d\n", i);
+        // printf("i is %d\n", i);
     prev = NULL;
     tkn = NULL;
     while (a->args[i])

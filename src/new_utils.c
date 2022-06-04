@@ -38,15 +38,21 @@ char  *ft_strfdup(char **str, int f)
   return (out);
 }
 
-int ft_strlook(char *str)
+bool  ft_strlook(char *str, char *look)
 {
+  int i;
+
   while (*str)
   {
-    if (*str == '>' || *str == '>' || *str == '|') // ... >> <<
-      return (1);
+    i = -1;
+    while (look[++i])
+    {
+      if (*str == look[i])
+        return (true);
+    }
     str++;
   }
-  return (0);
+  return (false);
 }
 
 //printing utils for debugging
@@ -83,3 +89,16 @@ void  print_tkn(t_token *t)
   }
 }
 
+
+void  print_var(t_var *v)
+{
+  printf("-var-*\n");
+  while (v)
+  {
+    printf("%s\n", v->name);
+    printf("%s\n", v->content);
+    printf("-|\n");
+    v++;
+  }
+  printf("-----*\n");
+}
