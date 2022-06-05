@@ -48,6 +48,7 @@ void init(int argc, char *argv[], char *envp[])
 		shell->head = ft_evaluate_args_to_token(arg); 
 		check_token_to_variables(&shell); //if (helloworld=world) make it var not a token;
 
+		/*printing to see whats happening*/
 		// if (shell->var != NULL)
 		// 	print_var(shell->var);
 		// print_tkn(shell->head); //TOKENS ARE READY to parse

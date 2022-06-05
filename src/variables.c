@@ -1,17 +1,27 @@
 #include "../include/minishell.h"
 
-void	ft_var_add_back(t_var **lst, t_var *new)
+void	ft_var_add_back(t_var **head, t_var *new)
 {
 	t_var	*last_ptr;
 
-	if (*lst == NULL)
+	if (*head == NULL)
 	{
-		*lst = new;
+		*head = new;
 		return ;
 	}
-	last_ptr = *lst;
-	while (last_ptr->next != NULL)
-		last_ptr = last_ptr->next;
+	last_ptr = *head;
+	while (42)
+	{
+		if (ft_strexact(new->name, last_ptr->name))
+		{
+			last_ptr->content = new->content;
+			return ;
+		}
+		if (last_ptr->next != NULL)
+			last_ptr = last_ptr->next;
+		else
+			break;
+	}
 	last_ptr->next = new;
 }
 
@@ -40,25 +50,29 @@ t_var	*ft_token_to_var(t_token *token)
 	return (var);
 }
 
-
 void	check_token_to_variables(t_minishell **shell)
 {
 	t_token *tkn;
-	t_var	*var;
 	t_var	*tmp;
+	t_var	*var;
 
 	tkn = (*shell)->head;
-	var = (*shell)->var;
+	var = (*shell)->var; 
 	while (tkn)
 	{
 		// printf("checking=%s \n", tkn->cmd);
 		if (ft_strlook(tkn->cmd, "="))
 		{
 			tmp = ft_token_to_var(tkn);
-			ft_var_add_back(&var, tmp);
-			printf("added!\n");
-			print_var(tmp);
+			ft_var_add_back(&(*shell)->var, tmp);
 		}
 		tkn=tkn->next;
 	}
 }
+
+/* NOTES on 
+$> test1=one test2=two
+--> there are two cmds here and need to be seperated in targs
+$> test1=onevone
+--> need to find if test1 exist, if it does, replace the content
+*/
