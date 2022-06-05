@@ -24,7 +24,6 @@ void	ft_dquote(char **output)
 	}
 	if (even_quotation == false)
 		ft_dquote(output);
-	//there is some bug if you make too many dquotes i think..........
 }
 
 
@@ -39,7 +38,7 @@ char	*ft_proceed(char **input)
 	while (**input)
 	{
 		//if (> < |) ... << >>
-		if (**input == '>' || **input == '>' || **input == '|') // ... >> <<
+		if (**input == '>' || **input == '<' || **input == '|') // ... >> <<
 		{
 			if (output[i - 1] == 0) 
 			{
@@ -51,7 +50,7 @@ char	*ft_proceed(char **input)
 				break;
 		}
 		if (**input != '"')
-			output[i++] = **input; //if '=' break on next white space
+			output[i++] = **input;
 		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
 		{
 			(*input)++;
@@ -102,6 +101,5 @@ t_args	*ft_cmd_to_args(char *str)
 		targ->args[i] = malloc(sizeof(char) * ft_strlen(str));
 		targ->args[i++] = ft_proceed(&str);
 	}
-	// print_targs(targ);
 	return (targ);
 }

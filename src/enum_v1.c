@@ -43,14 +43,11 @@ t_token *ft_evaluate_args_to_token(t_args *a)
 
     i = 0;
     head = ft_evalute_single_token(a->args, &i);
-        // print_tkn(head);
-        // printf("i is %d\n", i);
     prev = NULL;
     tkn = NULL;
     while (a->args[i])
     {
         tkn = ft_evalute_single_token(a->args, &i);
-            // print_tkn(tkn);
         if (prev)
             prev->next = tkn;
         tkn->prev = prev;

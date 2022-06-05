@@ -53,26 +53,12 @@ t_var	*ft_token_to_var(t_token *token)
 void	check_token_to_variables(t_minishell **shell)
 {
 	t_token *tkn;
-	t_var	*tmp;
-	t_var	*var;
 
 	tkn = (*shell)->head;
-	var = (*shell)->var; 
 	while (tkn)
 	{
-		// printf("checking=%s \n", tkn->cmd);
 		if (ft_strlook(tkn->cmd, "="))
-		{
-			tmp = ft_token_to_var(tkn);
-			ft_var_add_back(&(*shell)->var, tmp);
-		}
+			ft_var_add_back(&(*shell)->var, ft_token_to_var(tkn));
 		tkn=tkn->next;
 	}
 }
-
-/* NOTES on 
-$> test1=one test2=two
---> there are two cmds here and need to be seperated in targs
-$> test1=onevone
---> need to find if test1 exist, if it does, replace the content
-*/
