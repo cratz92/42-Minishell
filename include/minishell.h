@@ -38,6 +38,7 @@ typedef enum	s_type
 	IS_PIPE,
 	IS_RDR, //riderection
 	IS_CMD, //command
+	IS_VAR, //variable
 }				t_type;
 
 
@@ -113,6 +114,7 @@ char	*ft_strldup(char *str, int l);
 char	*ft_strfdup(char **str, int f);
 bool 	ft_strlook(char *str, char *look);
 bool	ft_strexact(char *s1, char *s2);
+bool	ft_strexact_abs(char *s1, char *s2);
 
 void 	print_targs(t_args *a);
 void 	print_tkn(t_token *t);

@@ -47,17 +47,16 @@ void init(int argc, char *argv[], char *envp[])
 		arg = ft_cmd_to_args(cmd_buff);
 		// print_targs(arg);
 		shell->head = ft_evaluate_args_to_token(arg); 
-		// print_tkn(shell->head);
+		print_tkn(shell->head);
 		check_token_to_variables(&shell); //if (helloworld=world) make it var not a token;
 
 		/*printing to see whats happening*/
-		if (shell->var != NULL)
-			print_var(shell->var);
+		// if (shell->var != NULL)
+		// 	print_var(shell->var);
 		// print_tkn(shell->head); //TOKENS ARE READY to parse
 
 		if (!ft_strncmp(cmd_buff, "exit", 5))
 			break;
-
 		add_history(cmd_buff);
 
 		// parse args
