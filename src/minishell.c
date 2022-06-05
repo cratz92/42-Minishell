@@ -33,6 +33,7 @@ void init(int argc, char *argv[], char *envp[])
 
 	cmd = NULL;
 	shell = malloc(sizeof(t_minishell));
+	shell->var = NULL;
 	while (1)
 	{
 		// read stdin
@@ -46,7 +47,8 @@ void init(int argc, char *argv[], char *envp[])
 		arg = ft_cmd_to_args(cmd_buff);
 		shell->head = ft_evaluate_args_to_token(arg); 
 		check_token_to_variables(&shell); //if (helloworld=world) make it var not a token;
-		// if (shell->var)
+
+		// if (shell->var != NULL)
 		// 	print_var(shell->var);
 		// print_tkn(shell->head); //TOKENS ARE READY to parse
 

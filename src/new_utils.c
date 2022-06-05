@@ -93,12 +93,14 @@ void  print_tkn(t_token *t)
 void  print_var(t_var *v)
 {
   printf("-var-*\n");
+  int i = 0;
   while (v)
   {
-    printf("%s\n", v->name);
-    printf("%s\n", v->content);
+    printf("name%d:%s\n", i, v->name);
+    printf("content%d:%s\n", i, v->content);
     printf("-|\n");
-    v++;
+    v = v->next;
+    i++;
   }
   printf("-----*\n");
 }

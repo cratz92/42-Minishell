@@ -33,6 +33,7 @@ t_var	*ft_token_to_var(t_token *token)
 		var->name[j++] = token->cmd[i++];
 	var->name[j] = 0;
 	i++;
+	j = 0;
 	while (token->cmd[i])
 		var->content[j++] = token->cmd[i++];
 	var->content[j] = 0;
@@ -44,6 +45,7 @@ void	check_token_to_variables(t_minishell **shell)
 {
 	t_token *tkn;
 	t_var	*var;
+	t_var	*tmp;
 
 	tkn = (*shell)->head;
 	var = (*shell)->var;
@@ -52,8 +54,10 @@ void	check_token_to_variables(t_minishell **shell)
 		// printf("checking=%s \n", tkn->cmd);
 		if (ft_strlook(tkn->cmd, "="))
 		{
-			var = ft_token_to_var(tkn);
-			// printf("added!\n");
+			tmp = ft_token_to_var(tkn);
+			ft_var_add_back(&var, tmp);
+			printf("added!\n");
+			print_var(tmp);
 		}
 		tkn=tkn->next;
 	}
