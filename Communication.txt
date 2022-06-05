@@ -15,3 +15,8 @@
 
 4 June
 -working on local variables, ie; helloworld="say hello" = echo $helloworld
+
+5 June
+-completed storing variables in t_minishell->var
+-commands and arguments properly stored. ready for execution
+-What can I do NEXT?(:
