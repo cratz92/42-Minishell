@@ -27,11 +27,16 @@ t_token *ft_evalute_single_token(char **a, int *i)
     tkn->cmd = NULL;
     tkn->args = NULL;
     tkn->args = malloc(sizeof(1000));
-
     tkn->cmd = a[j];
-    if (a[j][0] == '|')
+    if (ft_strlook(a[j], "="))
+    {
+        tkn->en = 4;
+        *i += 1;
+        return (tkn);
+    }
+     if (a[j][0] == '|')
         tkn->en = 1;
-    if (a[j][0] == '<' || a[j][0] == '>')
+    else if (a[j][0] == '<' || a[j][0] == '>')
         tkn->en = 2;
     else
         tkn->en = 3;

@@ -32,6 +32,7 @@ char	*ft_proceed(char **input)
 {
 	char	*output;
 	int		i;
+	bool	f;
 
 	output = malloc(sizeof(char) * ft_strlen(*input) + 1); //Later need to remalloc if want to make it perfect
 	i = 0;
@@ -50,7 +51,7 @@ char	*ft_proceed(char **input)
 				break;
 		}
 		if (**input != '"')
-			output[i++] = **input;
+			output[i++] = **input; //if '=' break on next white space
 		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
 		{
 			(*input)++;

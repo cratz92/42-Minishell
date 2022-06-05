@@ -99,7 +99,7 @@ void  print_tkn(t_token *t)
     printf("%s\n", t->args[i++]);
   }
   printf("----*\n");
-  if (t->next)
+  if (t->next != NULL)
   {
     printf("NEXT*\n");
     print_tkn(t->next);
