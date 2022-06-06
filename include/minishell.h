@@ -104,6 +104,7 @@ int ft_append(char **cmd, char **envp);
 
 //prompt.c
 char *ft_prompt(char *str);
+char	*get_preprompt(void);
 
 //detective
 t_args *ft_cmd_to_args(char *str);

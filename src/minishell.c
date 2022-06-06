@@ -28,21 +28,22 @@ void init(int argc, char *argv[], char *envp[])
 	char	*cmd;
 	(void)	argv;
 	char	prompt[241];
+	char	*preprompt;
 	t_args	*arg; //to replace the *cmd
 	t_minishell	*shell;
 
 	cmd = NULL;
 	shell = malloc(sizeof(t_minishell));
 	shell->var = NULL;
+	preprompt = get_preprompt();
 	while (1)
 	{
 		// read stdin
 		getcwd(prompt, 242);
+		printf("%s", preprompt);
 		cmd_buff = readline(ft_prompt(prompt));
-
 		if (!cmd_buff)
 			break;
-		
 		arg = ft_cmd_to_args(cmd_buff);
 		shell->head = ft_evaluate_args_to_token(arg); 
 		// print_tkn(shell->head);
@@ -73,6 +74,7 @@ void init(int argc, char *argv[], char *envp[])
 		// stuff to do before exit
 		free(cmd_buff);
 	}
+	//free preprompt
 }
 
 int main(int argc, char *argv[], char *envp[])
