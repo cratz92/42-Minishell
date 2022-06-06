@@ -3,18 +3,19 @@
 /* To detect a " when parsing
 Goal is create t_args-> array of args */
 
-void	ft_dquote(char **output)
+void	ft_dquote(char **output, char c)
 {
 	char	*buff;
 	bool	even_quotation;
 	int		i;
 
+	printf("looking for %c\n", c);
 	i = ft_strlen(*output);
 	even_quotation = false; //flag: we have already 1 ", we need an even number of "
 	buff = readline("dquote> ");
 	while (*buff)
 	{
-		if (*buff == '"')
+		if (*buff == c)
 		{
 			buff++;
 			even_quotation = !even_quotation;
@@ -23,21 +24,20 @@ void	ft_dquote(char **output)
 		buff++;
 	}
 	if (even_quotation == false)
-		ft_dquote(output);
+		ft_dquote(output, c);
 }
 
 char	*ft_proceed(char **input)
 {
 	char	*output;
 	int		i;
-	bool	f;
+	char	c;
 
 	output = malloc(sizeof(char) * ft_strlen(*input) + 1); //Later need to remalloc if want to make it perfect
 	i = 0;
 	while (**input)
 	{
-		//if (> < |) ... << >>
-		if (**input == '>' || **input == '<' || **input == '|') // ... >> <<
+		if (**input == '>' || **input == '<' || **input == '|')
 		{
 			if (output[i - 1] == 0) 
 			{
@@ -53,21 +53,22 @@ char	*ft_proceed(char **input)
 			else
 				break;
 		}
-		if (**input != '"')
+		if (**input != '"' && **input != '\'')
 			output[i++] = **input;
-		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
+		else if (**input == '"' || **input == '\'')
 		{
+			c = **input;
 			(*input)++;
-			while (**input != '"' && **input) //+ BREAK CASE
+			while (**input != c && **input)
 			{
 				output[i++] = **input;
 				(*input)++;
 			}
-			if (**input == '"')
+			if (**input == c)
 				(*input)++;
 			else 
 			{
-				ft_dquote(&output);
+				ft_dquote(&output, c);
 				i = ft_strlen(output);
 			}
 			if (**input == 32)
