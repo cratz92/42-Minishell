@@ -48,10 +48,8 @@ char	*ft_proceed(char **input)
 					output[i++] = **input;
 					(*input)++;
 				}
-				break;
 			}
-			else
-				break;
+			break;
 		}
 		if (**input != '"' && **input != '\'')
 			output[i++] = **input;

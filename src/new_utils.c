@@ -111,16 +111,15 @@ void  print_tkn(t_token *t)
   int i;
 
   i = 0;
-  printf("----*\n");
-  printf("CMD:%s|%d\n----\n", t->cmd, t->en);
+  printf("-----*\n");
+  printf("CMD:%s|%d(enum)\n", t->cmd, t->en);
   while(t->args[i])
   {
     printf("%s\n", t->args[i++]);
   }
-  printf("----*\n");
   if (t->next != NULL)
   {
-    printf("NEXT*\n");
+    printf("NEXT-*\n");
     print_tkn(t->next);
   }
 }
