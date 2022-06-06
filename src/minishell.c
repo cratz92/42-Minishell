@@ -51,7 +51,7 @@ void init(int argc, char *argv[], char *envp[])
 		/*printing to see whats happening*/
 		// if (shell->var != NULL)
 		// 	print_var(shell->var);
-		// print_tkn(shell->head); 
+		print_tkn(shell->head); 
 		
 		//TOKENS ARE READY to parse
 

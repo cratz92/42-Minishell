@@ -20,3 +20,6 @@
 -completed storing variables in t_minishell->var
 -commands and arguments properly stored. ready for execution
 -What can I do NEXT?(:
+
+6 June
+-...
