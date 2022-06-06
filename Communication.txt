@@ -23,4 +23,5 @@
 
 6 June
 -did >> <<
--start on single quotes '
+-single quote and double quote working- dquote
+-preprompt: Cratz92@42Lisboa/
