@@ -51,7 +51,7 @@ void init(int argc, char *argv[], char *envp[])
 		// print_tkn(shell->head); 
 		
 
-		if (!ft_strncmp(cmd_buff, "exit", 5))
+		if (!ft_strncmp(cmd_buff, "exit", 5)) //can be: shell->head->cmd
 			break;
 		add_history(cmd_buff);
 
