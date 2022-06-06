@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gponti-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: V <V@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:37:56 by gponti-s          #+#    #+#             */
-/*   Updated: 2021/03/01 18:37:59 by gponti-s         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:28:52 by V                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last_elem = ft_lstlast(*lst);
 	last_elem->next = new;
 }
+

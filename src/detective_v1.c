@@ -3,54 +3,69 @@
 /* To detect a " when parsing
 Goal is create t_args-> array of args */
 
-void	ft_dquote(char **output, int i)
+void	ft_dquote(char **output, char c)
 {
 	char	*buff;
-	int		c;
+	bool	even_quotation;
+	int		i;
 
-	c = 0;
+	i = ft_strlen(*output);
+	even_quotation = false; //flag: we have already 1 ", we need an even number of "
 	buff = readline("dquote> ");
 	while (*buff)
 	{
-		if (*buff == '"')
+		if (*buff == c)
 		{
 			buff++;
-			c++;
+			even_quotation = !even_quotation;
 		}
 		(*output)[i++] = *buff;
 		buff++;
 	}
-	if (c % 2 == 1) //MY MATH needs work
-	{
-		// ft_dquote(output, i);
-	}
+	if (even_quotation == false)
+		ft_dquote(output, c);
 }
-
 
 char	*ft_proceed(char **input)
 {
 	char	*output;
 	int		i;
+	char	c;
 
 	output = malloc(sizeof(char) * ft_strlen(*input) + 1); //Later need to remalloc if want to make it perfect
 	i = 0;
 	while (**input)
 	{
-		if (**input != '"')
-			output[i++] = **input;
-		else if (**input == '"') //&& **input - 1 != '´' BREAK CASE
+		if (**input == '>' || **input == '<' || **input == '|')
 		{
+			if (output[i - 1] == 0) 
+			{
+				output[i++] = **input;
+				(*input)++;
+				if (output[i - 1] == **input)
+				{
+					output[i++] = **input;
+					(*input)++;
+				}
+			}
+			break;
+		}
+		if (**input != '"' && **input != '\'')
+			output[i++] = **input;
+		else if (**input == '"' || **input == '\'')
+		{
+			c = **input;
 			(*input)++;
-			while (**input != '"' && **input) //+ BREAK CASE
+			while (**input != c && **input)
 			{
 				output[i++] = **input;
 				(*input)++;
 			}
-			if (**input == '"')
+			if (**input == c)
 				(*input)++;
 			else 
 			{
-				ft_dquote(&output, i);
+				ft_dquote(&output, c);
 				i = ft_strlen(output);
 			}
 			if (**input == 32)
@@ -64,55 +79,29 @@ char	*ft_proceed(char **input)
 	return (output);
 }
 
-
-
-
-/* main
--count quotes if > 0
--if %2 != 0 -> ft_dquote
--if
-*/
-
 void	init_targs(t_args **arg)
 {
 	(*arg) = malloc(sizeof(t_args));
 	(*arg)->nbr_pipes = 0;
 	(*arg)->nbr_endline = 0;
-	(*arg)->args = NULL; //?maybe this is meaninless - NULL
+	(*arg)->args = NULL;
 }
 
 t_args	*ft_cmd_to_args(char *str)
 {
 	t_args	*targ;
 	int		i;
-	char	*cpy;
+	char	**cpy;
 
-	
-	printf("WE ARE Here\n");
-	printf("%s |\n", str);
 	init_targs(&targ);
-	// printf("targ: %d, \n", targ->nbr_pipes);
+	targ->args = malloc(sizeof(char) * 1000); //this can improve
 	i = 0;
 	while (*str)
 	{
 		while (*str == 32)
 			str++;
-		printf("%s -\n", ft_proceed(&str));
-    	// printf("cpied|%s| -> |%s|\n", cpy, str);
+		targ->args[i] = malloc(sizeof(char) * ft_strlen(str));
+		targ->args[i++] = ft_proceed(&str);
 	}
-
-	// print_targs(targ);
-	// printf("we found %d |\n", bk);
-	// if (ft_scan_for_quotes(str) == 0)
-		//duplicate arg
-	// else
 	return (targ);
 }
-
-
-/* EXAMPLES TO MIND
-✗ echo terminal"love"
-terminallove
-✗ echo terminal"this is a love"
-terminalthis is a love
-*/

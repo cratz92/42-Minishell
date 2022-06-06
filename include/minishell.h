@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -32,32 +33,53 @@
 #define ERROR_127 127
 // structs => We need a Command Table
 
+typedef enum	s_type
+{
+	IS_PIPE,
+	IS_RDR, //riderection
+	IS_CMD, //command
+	IS_VAR, //variable
+}				t_type;
+
+
+typedef struct	s_var
+{
+	char			*name;
+	char			*content;
+	struct s_var	*next;
+}				t_var;
+/* local variables when myname=name 
+are stored as a variable, outputed as $myname
+*/
+
 typedef struct	s_args
 {
-	//bool	pipes;
-	int nbr_pipes;
-	//bool	endline;
-	int	nbr_endline;
-	char **args;
+	int		nbr_pipes; //bool	pipes;
+	int		nbr_endline; //bool	endline;
+	char	**args;
 }				t_args;
 /* so first we read the args(input from readline)
 then split into args, fill out pipes endline ect.
-and then create tokens
+and then create tokens or local variable
 */
 
 typedef struct	s_token
 {
 	char	*cmd;
 	char	**args;
+	t_type	en;
 	struct s_token	*next;
+	struct s_token	*prev;
 }				t_token;
 /*tokens have cmd, and args (optional)
 next is pointing to next for link list
 */
 
+
 typedef struct 	s_minishell
 {
 	t_token		*head; //pointing to the first token
+	t_var		*var;
 }				t_minishell;
 
 // ********** PROTOTYPES  ***********
@@ -82,16 +104,22 @@ int ft_append(char **cmd, char **envp);
 
 //prompt.c
 char *ft_prompt(char *str);
+char	*get_preprompt(void);
 
 //detective
 t_args *ft_cmd_to_args(char *str);
 
 
 //newutils.c
-char  *ft_strldup(char *str, int l);
-char  *ft_strfdup(char **str, int f);
+char	*ft_strldup(char *str, int l);
+char	*ft_strfdup(char **str, int f);
+bool 	ft_strlook(char *str, char *look);
+bool	ft_strexact(char *s1, char *s2);
+bool	ft_strexact_abs(char *s1, char *s2);
 
-void  print_targs(t_args *a);
+void 	print_targs(t_args *a);
+void 	print_tkn(t_token *t);
+void  	print_var(t_var *v);
 
 
 // temporary files
@@ -99,5 +127,11 @@ void  print_targs(t_args *a);
 int redirection_in(char **cmd, char **envp);
 int ft_heredoc(char **cmd, char **envp);
 
+//enum
+t_token *ft_evaluate_args_to_token(t_args *a);
+
+
+//variables
+void	check_token_to_variables(t_minishell **shell);
 
 #endif

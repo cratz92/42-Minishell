@@ -24,27 +24,35 @@ void handle_ctrlc(int sig)
 
 void init(int argc, char *argv[], char *envp[])
 {
-	char	*cmd_buff;
-	char	*cmd;
-	(void)	argv;
-	char	prompt[241];
+	char		*cmd_buff;
+	(void)		argv;
+	char		prompt[241];
+	char		*preprompt;
+	t_minishell	*shell;
 
-	cmd = NULL;
+	shell = malloc(sizeof(t_minishell));
+	shell->var = NULL;
+	preprompt = get_preprompt();
 	while (1)
 	{
 		// read stdin
 		getcwd(prompt, 242);
+		printf("%s", preprompt);
 		cmd_buff = readline(ft_prompt(prompt));
-		// printf("%s \n", cmd_buff);
-
 		if (!cmd_buff)
 			break;
-		//cmd_buf to t_args
-		ft_cmd_to_args(cmd_buff);
+		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
+		check_token_to_variables(&shell);
+		//TOKENS ARE READY to be parsed
 
-		if (!ft_strncmp(cmd_buff, "exit", 5))
+		/*printing to see whats happening UNDO // */
+		// if (shell->var != NULL)
+		// 	print_var(shell->var);
+		// print_tkn(shell->head); 
+		
+
+		if (!ft_strncmp(cmd_buff, "exit", 5)) //can be: shell->head->cmd
 			break;
-
 		add_history(cmd_buff);
 
 		// parse args
@@ -61,6 +69,7 @@ void init(int argc, char *argv[], char *envp[])
 		// stuff to do before exit
 		free(cmd_buff);
 	}
+	//free preprompt
 }
 
 int main(int argc, char *argv[], char *envp[])

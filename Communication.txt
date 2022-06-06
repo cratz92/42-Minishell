@@ -7,3 +7,21 @@
 -work regarding output redirections, more precisely > and >>
 -sketch of an ideia to resolve the heredoc situation (<<)
 -small updates on execution.c and redict_output.c and minishell.h according to the work of line 7
+
+
+2 June
+-Token are linked, have CMDS and ARGS and now need to be parsed.
+-need to solve >>, mañana
+
+4 June
+-working on local variables, ie; helloworld="say hello" = echo $helloworld
+
+5 June
+-completed storing variables in t_minishell->var
+-commands and arguments properly stored. ready for execution
+-What can I do NEXT?(:
+
+6 June
+-did >> <<
+-single quote and double quote working- dquote
+-preprompt: Cratz92@42Lisboa/
