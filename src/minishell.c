@@ -73,7 +73,7 @@ void init(int argc, char *argv[], char *envp[])
 		// // execute parsed args
 
 		// // stuff to do before exit
-		// free(cmd_buff);
+		free(cmd_buff);
 	}
 	//free preprompt
 }
