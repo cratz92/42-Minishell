@@ -12,6 +12,16 @@
 
 #include "../include/minishell.h"
 
+void	ft_validations(t_minishell **shell)
+{
+	/* sudo code
+	1. check if CMD exist
+	2. ARGS ...
+	3. if not- return exit code
+	*/
+}
+
+
 void handle_ctrlc(int sig)
 {
 	(void)sig;
@@ -32,6 +42,7 @@ void init(int argc, char *argv[], char *envp[])
 
 	shell = malloc(sizeof(t_minishell));
 	shell->var = NULL;
+	shell->ec = 0;
 	preprompt = get_preprompt();
 	while (1)
 	{
@@ -50,11 +61,10 @@ void init(int argc, char *argv[], char *envp[])
 		// 	print_var(shell->var);
 		// print_tkn(shell->head); 
 		
-
+		ft_validations(&shell);
 		if (!ft_strncmp(cmd_buff, "exit", 5)) //can be: shell->head->cmd
 			break;
 		add_history(cmd_buff);
-
 		// parse args
 		parse_args(cmd_buff, envp);
 

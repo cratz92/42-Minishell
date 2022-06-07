@@ -80,6 +80,7 @@ typedef struct 	s_minishell
 {
 	t_token		*head; //pointing to the first token
 	t_var		*var;
+	int			ec; //exitcode
 }				t_minishell;
 
 // ********** PROTOTYPES  ***********
