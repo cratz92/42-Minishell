@@ -87,6 +87,7 @@ void	init_targs(t_args **arg)
 	(*arg)->args = NULL;
 }
 
+
 t_args	*ft_cmd_to_args(char *str)
 {
 	t_args	*targ;

@@ -1,41 +1,75 @@
 #include "../include/minishell.h"
 
 /*
-validate $var check var
-if found var = var
+validate $var check t_var
+if found var = t_var->content
 if not var = "";
 */
 
-
-void	check_var_exist(char **token, t_var *var)
+char	*var_for_content(char **str, t_var *var)
 {
-	char	*str;
+	char	*content;
+	char	*tmp;
+	char	*ptr;
+	int		i;
+	bool	found;
 
-	str = *token;
-	str++;
-	printf("check_var_exist@%s \n", str);
+	i = 0;
+	found = false;
+	tmp = malloc(100);
+	ptr = *str;
+	while (*ptr != 0 && *ptr != 32)
+	{
+		tmp[i++] = *ptr;
+		ptr++;
+	}
+	tmp[i] = 0;
 	while (var)
 	{
-		printf("variable now is:%s\n", var->name);
-		if (ft_strexact(str, var->name))
+		if (ft_strexact(tmp, var->name))
 		{
-			printf("FOUND %s is %s\n", str, var->name);
-			str = ft_strdup(var->content); //str_dup double allocation fo memory
-			**token = &str;
-			printf("NOW=%s\n", str);
-			return ;
+			found = true;
+			content = ft_strdup(var->content);
+			break;
 		}
 		var = var->next;
 	}
-	str = ft_strdup(""); //again str_dup? for str = "";
-	**token = &str;
-	printf("NOT FOUND@%s \n", str);
+	if (!found)
+		content = ft_strdup("");
+	*str = ptr;
+	free (tmp);
+	tmp = NULL;
+	return (content);
 }
 
 
+
+char	*change_dollar_for_money(char *str, t_var *var)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	new = malloc(sizeof(char) * ft_strlen(str));
+	while (*str)
+	{
+		j = ft_strlen(new);
+		while (*str != '$' && *str != 0)
+			new[j++] = (*str)++;
+		if (*str == '$')
+		{
+			str++;
+			new = ft_strjoin(new, var_for_content(&str, var));
+		}
+	}
+	// printf("OK NEW = %s\n", new);
+	return (new);
+}
+
 void	check_and_replace_if_variables(t_token **tkn, t_var *var)
 {
-	printf("ft_check_and_replace_if_variables\n");
+	// printf("ft_check_and_replace_if_variables\n");
 	t_token	*ptr;
 	char	*str;
 	int		i;
@@ -48,9 +82,15 @@ void	check_and_replace_if_variables(t_token **tkn, t_var *var)
 	{
 		if (ptr->cmd[0] == '$')
 		{
-			check_var_exist(&ptr->cmd, var);
-			//check for variable
+			ptr->cmd = change_dollar_for_money(ptr->cmd, var);
 		}
+		i = -1;
+		while (ptr->args[++i])
+		{
+			//SCAN CHAR BY CHAR FOR $
+		}
+
+		//////THEN 
 		// i = -1;
 		// while (ptr->args[++i] != 0)
 		// {
@@ -61,7 +101,7 @@ void	check_and_replace_if_variables(t_token **tkn, t_var *var)
 		// 			//check for variables
 		// 	}
 		// }
-		printf("eval %s:\n", ptr->cmd);
+		// printf("eval %s:\n", ptr->cmd);
 		ptr = ptr->next;
 	}
 }

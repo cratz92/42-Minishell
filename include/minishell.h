@@ -136,4 +136,8 @@ t_token *ft_evaluate_args_to_token(t_args *a);
 void	check_token_to_variables(t_minishell **shell);
 void	check_and_replace_if_variables(t_token **tkn, t_var *var);
 
+
+//validation
+void	ft_validations(t_minishell **shell);
+
 #endif
