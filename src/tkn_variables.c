@@ -2,27 +2,31 @@
 
 void	ft_var_add_back(t_var **head, t_var *new)
 {
-	t_var	*last_ptr;
+	t_var	*ptr;
 
+	if (ft_strlen(new->name) == 0)
+		return ;
 	if (*head == NULL)
 	{
 		*head = new;
 		return ;
 	}
-	last_ptr = *head;
-	while (42)
+	ptr = *head;
+	while (45)
 	{
-		if (ft_strexact(new->name, last_ptr->name))
+		if (ft_strexact(new->name, ptr->name) == true)
 		{
-			last_ptr->content = new->content;
+			ptr->content = new->content;
 			return ;
 		}
-		if (last_ptr->next != NULL)
-			last_ptr = last_ptr->next;
+		if (ptr->next != NULL)
+			ptr = ptr->next;
 		else
+		{
+			ptr->next = new;
 			break;
+		}
 	}
-	last_ptr->next = new;
 }
 
 t_var	*ft_token_to_var(t_token *token)

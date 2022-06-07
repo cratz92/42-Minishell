@@ -54,13 +54,15 @@ void init(int argc, char *argv[], char *envp[])
 			break;
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(&shell);
+		// check_and_replace_if_variables(&shell->head, shell->var); //working on now
 		//TOKENS ARE READY to be parsed
 
 		/*printing to see whats happening UNDO // */
-		if (shell->var != NULL)
-			print_var(shell->var);
-		print_tkn(shell->head); 
-		
+		// printf("PRINTING\n\n");
+		// if (shell->var != NULL)
+		// 	print_var(shell->var);
+		// print_tkn(shell->head); 
+
 		ft_validations(&shell);
 		if (!ft_strncmp(cmd_buff, "exit", 5)) //: cmd_buff => shell->head->cmd
 			break;
@@ -74,9 +76,9 @@ void init(int argc, char *argv[], char *envp[])
 		// if (argc == 4)
 		// 	redirection(cmd_buff, envp);
 
-		// execute parsed args
+		// // execute parsed args
 
-		// stuff to do before exit
+		// // stuff to do before exit
 		free(cmd_buff);
 	}
 	//free preprompt
@@ -113,3 +115,11 @@ int main(int argc, char *argv[], char *envp[])
 
 	return (SUCESS);
 }
+
+
+/*
+IMPORTANT
+-sometime it doesnt record the user input in the prompt, for example "exit" or a simple user input
+
+
+*/
