@@ -1,26 +1,26 @@
 #include "../include/minishell.h"
 
 // realloc for minishell 
-static void	*ft_realloc_ms(void *ptr, size_t size)
-{
-	char	*temp;
-    size_t  ptrLen;
-    int i;
+// static void	*ft_realloc_ms(void *ptr, size_t size)
+// {
+// 	char	*temp;
+//     size_t  ptrLen;
+//     int i;
 
-    ptrLen = ft_strlen(ptr)
-	temp = malloc(sizeof(char) * (ptrLen + size + 1));
-	if (temp == NULL)
-		return (NULL);
-	i = 0;
-    ft_memset(temp, 0, ptrLen + size + 1);
-    while (ptr[i] != '\0')
-    {
-        temp[i] = ptr[i];
-        i++;
-    }
-    temp[ptrLen + size + 1] = '\0';
-	return (temp);
-}
+//     ptrLen = ft_strlen(ptr)
+// 	temp = malloc(sizeof(char) * (ptrLen + size + 1));
+// 	if (temp == NULL)
+// 		return (NULL);
+// 	i = 0;
+//     ft_memset(temp, 0, ptrLen + size + 1);
+//     while (ptr[i] != '\0')
+//     {
+//         temp[i] = ptr[i];
+//         i++;
+//     }
+//     temp[ptrLen + size + 1] = '\0';
+// 	return (temp);
+// }
 
 static int	ft_strstr_ms(const char *s1, const char *s2)
 {
@@ -37,7 +37,7 @@ static int	ft_strstr_ms(const char *s1, const char *s2)
 	while (s1[i] != '\0')
     {
         if (s1[i] != s2[j + i])
-            return (0)
+            return (0);
         i++;
     }
 	return (i);

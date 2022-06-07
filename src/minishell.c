@@ -18,9 +18,9 @@ void	ft_validations(t_minishell **shell)
 	1. check if CMD exist
 	2. ARGS ...
 	3. if not- return exit code
+	4. What else?
 	*/
 }
-
 
 void handle_ctrlc(int sig)
 {
@@ -57,12 +57,12 @@ void init(int argc, char *argv[], char *envp[])
 		//TOKENS ARE READY to be parsed
 
 		/*printing to see whats happening UNDO // */
-		// if (shell->var != NULL)
-		// 	print_var(shell->var);
-		// print_tkn(shell->head); 
+		if (shell->var != NULL)
+			print_var(shell->var);
+		print_tkn(shell->head); 
 		
 		ft_validations(&shell);
-		if (!ft_strncmp(cmd_buff, "exit", 5)) //can be: shell->head->cmd
+		if (!ft_strncmp(cmd_buff, "exit", 5)) //: cmd_buff => shell->head->cmd
 			break;
 		add_history(cmd_buff);
 		// parse args

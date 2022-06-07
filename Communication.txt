@@ -25,3 +25,6 @@
 -did >> <<
 -single quote and double quote working- dquote
 -preprompt: Cratz92@42Lisboa/
+
+7 June
+-search and replace if $var encountered (if not $var = NULL)
