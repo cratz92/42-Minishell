@@ -37,7 +37,7 @@ char	*var_for_content(char **str, t_var *var)
 	if (!found)
 		content = ft_strdup("");
 	*str = ptr;
-	free (tmp);
+	free(tmp);
 	tmp = NULL;
 	return (content);
 }
@@ -89,18 +89,6 @@ void	check_and_replace_if_variables(t_token **tkn, t_var *var)
 		{
 			//SCAN CHAR BY CHAR FOR $
 		}
-
-		//////THEN 
-		// i = -1;
-		// while (ptr->args[++i] != 0)
-		// {
-		// 	j = -1;
-		// 	while(ptr->args[i][++j])
-		// 	{
-		// 		if (ptr->args[i][j] == '$')
-		// 			//check for variables
-		// 	}
-		// }
 		// printf("eval %s:\n", ptr->cmd);
 		ptr = ptr->next;
 	}

@@ -46,15 +46,15 @@ void init(int argc, char *argv[], char *envp[])
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(&shell);
 
+		ft_validations(&shell); //to discuss
 		check_and_replace_if_variables(&shell->head, shell->var); //working on now
 
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
-		printf("PRINTING\n\n");
-		if (shell->var != NULL)
-			print_var(shell->var);
-		print_tkn(shell->head); 
+		// printf("PRINTING\n\n");
+		// if (shell->var != NULL)
+		// 	print_var(shell->var);
+		// print_tkn(shell->head); 
 
-		ft_validations(&shell);
 		if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
 			break;
 		else
@@ -62,7 +62,7 @@ void init(int argc, char *argv[], char *envp[])
 		add_history(cmd_buff); //this should probably be the first thing after readline ¿no?
 
 		// parse args
-		// parse_args(cmd_buff, envp);
+		parse_args(cmd_buff, envp);
 
 		// command_execution(cmd_buff, envp);
 		// if (argc == 3)
