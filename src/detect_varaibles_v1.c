@@ -56,14 +56,14 @@ char	*change_dollar_for_money(char *str, t_var *var)
 	{
 		j = ft_strlen(new);
 		while (*str != '$' && *str != 0)
-			new[j++] = (*str)++;
+			new[j++] = (*str++);
 		if (*str == '$')
 		{
 			str++;
 			new = ft_strjoin(new, var_for_content(&str, var));
 		}
 	}
-	// printf("OK NEW = %s\n", new);
+	// printf("==> %s\n", new);
 	return (new);
 }
 
@@ -80,14 +80,19 @@ void	check_and_replace_if_variables(t_token **tkn, t_var *var)
 	vptr = var;
 	while (ptr)
 	{
-		if (ptr->cmd[0] == '$')
+		if (ft_strlook(ptr->cmd, "$"))
 		{
+			// printf("FOUNDCMD: %s\n", ptr->cmd);
 			ptr->cmd = change_dollar_for_money(ptr->cmd, var);
 		}
 		i = -1;
 		while (ptr->args[++i])
 		{
-			//SCAN CHAR BY CHAR FOR $
+			if (ft_strlook(ptr->args[i], "$"))
+			{
+				// printf("FOUNDARG: %s\n", ptr->args[i]);
+				ptr->args[i] = change_dollar_for_money(ptr->args[i], var);
+			}
 		}
 		// printf("eval %s:\n", ptr->cmd);
 		ptr = ptr->next;

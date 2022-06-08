@@ -42,7 +42,10 @@ void init(int argc, char *argv[], char *envp[])
 		printf("%s", preprompt);
 		cmd_buff = readline(ft_prompt(prompt));
 		if (!cmd_buff)
+		{
+			printf("NOCMD\n");
 			break;
+		}
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(&shell);
 
@@ -55,6 +58,10 @@ void init(int argc, char *argv[], char *envp[])
 		// 	print_var(shell->var);
 		// print_tkn(shell->head); 
 
+
+		if (!ft_strncmp(shell->head->cmd, "ppvv", 5)) //: print variable list for debuggin
+			print_var(shell->var);
+		
 		if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
 			break;
 		else
