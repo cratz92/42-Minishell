@@ -35,7 +35,7 @@ char	*ft_proceed(char **input)
 
 	output = malloc(sizeof(char) * ft_strlen(*input) + 1); //Later need to remalloc if want to make it perfect
 	i = 0;
-	while (**input)
+	while (**input) //mulinette 25 lines max
 	{
 		if (**input == '>' || **input == '<' || **input == '|')
 		{

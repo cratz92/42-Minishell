@@ -87,7 +87,7 @@ typedef struct 	s_minishell
 // minishell.c
 int main(int argc, char *argv[], char *envp[]);
 void handle_ctrlc(int sig);
-void init(int argc, char *argv[], char *envp[]);
+int init(int argc, char *argv[], char *envp[]);
 
 // execution.c
 void command_execution(char **cmd,char *envp[]);
@@ -139,5 +139,12 @@ void	check_and_replace_if_variables(t_token **tkn, t_var *var);
 
 //validation
 void	ft_validations(t_minishell **shell);
+
+//free
+void	free_variables(t_var **vars);
+void	free_str(char *str);
+void	free_array(char **arr);
+void	free_tokens(t_token **tokens);
+int		free_minishell(t_minishell **shell);
 
 #endif

@@ -22,7 +22,7 @@
 // 	return (temp);
 // }
 
-static int	ft_strstr_ms(const char *s1, const char *s2)
+static int	ft_strstr_ms(const char *s1, const char *s2) //same as ft_strexact?
 {
 	size_t	i;
     size_t  j;

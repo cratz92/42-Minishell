@@ -12,28 +12,37 @@
 
 #include "../include/minishell.h"
 
+void	safe_exit(t_minishell **shell, char *buff)
+{
+	if (buff)
+		free_str(buff);
+	if ((*shell))
+		free_minishell(shell);
+}
 
 void handle_ctrlc(int sig)
 {
 	(void)sig;
 
 	write(1, "\n", 2);
-	//rl_replace_line("", 0);
+	// rl_replace_line("", 0); this is commented because if not it gives error
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-void init(int argc, char *argv[], char *envp[])
+int init(int argc, char *argv[], char *envp[])
 {
 	char		*cmd_buff;
 	(void)		argv;
 	char		prompt[241];
 	char		*preprompt;
 	t_minishell	*shell;
+	int			ec; //exitcode- need to return
 
+	ec = 1; //Working on now
 	shell = malloc(sizeof(t_minishell));
 	shell->var = NULL;
-	shell->ec = 0;
+	shell->ec = 0; //aka exitcode
 	preprompt = get_preprompt();
 	while (1)
 	{
@@ -41,13 +50,14 @@ void init(int argc, char *argv[], char *envp[])
 		getcwd(prompt, 242);
 		printf("%s", preprompt);
 		cmd_buff = readline(ft_prompt(prompt));
+		printf("%s\n", cmd_buff);
 		if (!cmd_buff)
 		{
-			printf("NOCMD\n");
-			break;
+			printf("NOCMD\n"); //segfault- because doesnt no read !cmd_buff
+			break ;
 		}
-		add_history(cmd_buff); //this should probably be the first thing after readline ¿no? //IF cmd_buff NULL NOT READING
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
+		add_history(cmd_buff); //this should probably be the first thing after readline ¿no? //IF cmd_buff NULL NOT READING
 
 		check_token_to_variables(&shell);
 
@@ -58,21 +68,27 @@ void init(int argc, char *argv[], char *envp[])
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
 		// printf("PRINTING\n\n");
 		// if (shell->var != NULL)
-			// print_var(shell->var);
-		// print_tkn(shell->head); 
+		// 	print_var(shell->var);
+		// print_tkn(shell->head);
 
 		if (!ft_strncmp(shell->head->cmd, "ppvv", 5)) //: print variable list for debuggin
-			print_var(shell->var);	
+		{
+			if (shell->var)
+				print_var(shell->var);
+			else
+				printf("variable list empty\n");	
+		}
 		if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
 		{
 			printf("BREAKEXIT\n"); //printf because sometimes does not break the while loop
-			break;
+			free_str(cmd_buff);
+			break ;
 		}
 		else
 			printf("%s ≠ exit", shell->head->cmd);
 
 		// parse args
-		parse_args(cmd_buff, envp);
+		// parse_args(cmd_buff, envp);
 
 		// command_execution(cmd_buff, envp);
 		// if (argc == 3)
@@ -82,17 +98,22 @@ void init(int argc, char *argv[], char *envp[])
 
 		// // execute parsed args
 
-		// // stuff to do before exit
-		free(cmd_buff);
-		//free shell->head and all that...! TODO NEXT
+		free_str(cmd_buff);
+		free_tokens(&shell->head);
 	}
-	//free preprompt
+	if (shell->var)
+		free_variables(&shell->var);
+	free_str(preprompt);
+	// free_minishell(&shell);
+	return (ec);
 }
 
 int main(int argc, char *argv[], char *envp[])
 {
-	struct termios term;
+	struct termios	term;
+	int				ec;
 
+	ec = 0; //initialize- working on exitcode now
 	if (argc != 1)
 	{
 		write(1, "plz initialize with ./minishell with no args\n", 45);
@@ -114,11 +135,11 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	// main loop
-	init(argc, argv, envp);
+	ec = init(argc, argv, envp);
 
 	// shutdown / cleanup
 
-	return (SUCESS);
+	return (ec);
 }
 
 

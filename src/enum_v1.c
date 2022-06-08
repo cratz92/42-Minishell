@@ -40,7 +40,9 @@ t_token *ft_evaluate_args_to_token(t_args *a)
     t_token *head;
     t_token *prev;
     int     i;
+    t_args  *cpy;
 
+    cpy = a;
     i = 0;
     head = ft_evalute_single_token(a->args, &i);
     prev = NULL;
@@ -60,5 +62,6 @@ t_token *ft_evaluate_args_to_token(t_args *a)
         head->next = tkn;
         tkn->prev = head;
     }
+    //free_array(cpy->args); // NOT NEEDED?
     return (head);
 }
