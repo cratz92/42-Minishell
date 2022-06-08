@@ -42,13 +42,16 @@ bool  ft_strlook(char *str, char *look)
 {
   int i;
 
+  if (!str || !look)
+    return (false);
   while (*str)
   {
-    i = -1;
-    while (look[++i])
+    i = 0;
+    while (look[i])
     {
       if (*str == look[i])
         return (true);
+      i++;
     }
     str++;
   }

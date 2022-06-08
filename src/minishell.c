@@ -47,26 +47,29 @@ void init(int argc, char *argv[], char *envp[])
 			break;
 		}
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
+		add_history(cmd_buff); //this should probably be the first thing after readline ¿no?
+		
 		check_token_to_variables(&shell);
 
 		ft_validations(&shell); //to discuss
-		check_and_replace_if_variables(&shell->head, shell->var); //working on now
+		check_and_replace_if_variables(&shell->head, shell->var);
 
+		// printf("CMDHEAD=%s\n", shell->head->cmd);
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
 		// printf("PRINTING\n\n");
 		// if (shell->var != NULL)
-		// 	print_var(shell->var);
+			// print_var(shell->var);
 		// print_tkn(shell->head); 
 
-
 		if (!ft_strncmp(shell->head->cmd, "ppvv", 5)) //: print variable list for debuggin
-			print_var(shell->var);
-		
+			print_var(shell->var);	
 		if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
+		{
+			printf("BREAKEXIT\n"); //printf because sometimes does not break the while loop
 			break;
+		}
 		else
 			printf("%s ≠ exit", shell->head->cmd);
-		add_history(cmd_buff); //this should probably be the first thing after readline ¿no?
 
 		// parse args
 		parse_args(cmd_buff, envp);

@@ -12,6 +12,7 @@ void	ft_dquote(char **output, char c)
 	i = ft_strlen(*output);
 	even_quotation = false; //flag: we have already 1 ", we need an even number of "
 	buff = readline("dquote> ");
+	add_history(buff);
 	while (*buff)
 	{
 		if (*buff == c)

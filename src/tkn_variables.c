@@ -63,6 +63,6 @@ void	check_token_to_variables(t_minishell **shell)
 	{
 		if (ft_strlook(tkn->cmd, "="))
 			ft_var_add_back(&(*shell)->var, ft_token_to_var(tkn));
-		tkn=tkn->next;
+		tkn = tkn->next;
 	}
 }
