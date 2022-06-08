@@ -41,13 +41,13 @@ void init(int argc, char *argv[], char *envp[])
 		getcwd(prompt, 242);
 		printf("%s", preprompt);
 		cmd_buff = readline(ft_prompt(prompt));
+		add_history(cmd_buff); //this should probably be the first thing after readline ¿no?
 		if (!cmd_buff)
 		{
 			printf("NOCMD\n");
 			break;
 		}
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
-		add_history(cmd_buff); //this should probably be the first thing after readline ¿no?
 		
 		check_token_to_variables(&shell);
 
@@ -84,7 +84,7 @@ void init(int argc, char *argv[], char *envp[])
 
 		// // stuff to do before exit
 		free(cmd_buff);
-		//free shell->head and all that...! TODO NEXT 
+		//free shell->head and all that...! TODO NEXT
 	}
 	//free preprompt
 }
