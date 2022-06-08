@@ -84,6 +84,7 @@ void init(int argc, char *argv[], char *envp[])
 
 		// // stuff to do before exit
 		free(cmd_buff);
+		//free shell->head and all that...! TODO NEXT 
 	}
 	//free preprompt
 }
