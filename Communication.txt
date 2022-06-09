@@ -28,3 +28,20 @@
 
 7 June
 -search and replace if $var encountered (if not $var = NULL)
+(THIS IS COMPLETE)
+
+
+
+(TO WORK ON THIS WEEK)
+9 June
+-echo hello; echo hi = two different command-> command break on ;
+-independent groups of commands and redirections which can be separated by ; && ||
+-environment variables: echo $HOME = /Users/V
+-ev make sure that the environment variable doesn't have a digit
+-$?. This variable will save the exit status from the last executed function. In our case we can check this behaviour by typing
+-exit mssgs...
+-g_msh.exit_status ?¿ what is this research
+
+
+URLS
+https://github.com/DimitriDaSilva/42_minishell

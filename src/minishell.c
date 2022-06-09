@@ -39,10 +39,10 @@ int init(int argc, char *argv[], char *envp[])
 	t_minishell	*shell;
 	int			ec; //exitcode- need to return
 
-	ec = 1; //Working on now
 	shell = malloc(sizeof(t_minishell));
 	shell->var = NULL;
-	shell->ec = 0; //aka exitcode
+	shell->ec = 0;
+	ec = shell->ec; //Working on now
 	preprompt = get_preprompt();
 	while (1)
 	{
