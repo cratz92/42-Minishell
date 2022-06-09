@@ -2,7 +2,7 @@
 
 void	free_str(char *str)
 {
-	printf("free_str:%s\n", str);
+	// printf("free_str:%s\n", str);
 	if (!str)
 		return ;
 	free(str);
@@ -80,9 +80,9 @@ int	free_minishell(t_minishell **shell)
 
 	exitcode = s->ec;
 	if (s->head)
-		free_tokens(s->head);
+		free_tokens(&s->head);
 	if (s->var)
-		free_variables(s->var);
+		free_variables(&s->var);
 	//MALLOC SEGFAULT BUG
 	free(*shell);
 	(*shell) = NULL;

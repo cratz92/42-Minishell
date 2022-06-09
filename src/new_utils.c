@@ -38,6 +38,21 @@ char  *ft_strfdup(char **str, int f)
   return (out);
 }
 
+bool  ft_strlook_char(char *str, char l)
+{
+  int i;
+
+  if (!str || !l)
+    return (false);
+  while (*str)
+  {
+      if (*str == l)
+        return (true);
+    str++;
+  }
+  return (false);
+}
+
 bool  ft_strlook(char *str, char *look)
 {
   int i;
@@ -111,12 +126,15 @@ void  print_tkn(t_token *t)
 {
   int i;
 
-  i = 0;
+  if (!t)
+    return ;
   printf("-----*\n");
   printf("CMD:%s|%d(enum)\n", t->cmd, t->en);
+  i = 0;
   while(t->args[i])
   {
-    printf("%s\n", t->args[i++]);
+    if (t->args[i])
+      printf("%s\n", t->args[i]); //there is a problem here when we have more than 3....
   }
   if (t->next != NULL)
   {

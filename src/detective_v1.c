@@ -51,8 +51,9 @@ char	*ft_proceed(char **input)
 			}
 			break;
 		}
-		if (**input != '"' && **input != '\'')
+		if (**input != '"' && **input != '\'') //&& **input != ';'
 			output[i++] = **input;
+		// if (**input == ';) break
 		else if (**input == '"' || **input == '\'')
 		{
 			c = **input;

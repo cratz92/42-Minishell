@@ -13,7 +13,7 @@ t_token *ft_evalute_single_token(char **a, int *i)
     tkn->args = NULL;
     tkn->args = malloc(sizeof(1000));
     tkn->cmd = a[j];
-    if (ft_strlook(a[j], "=") && !ft_strexact_abs(a[j - 1], "echo")) //just being carefull, but i think can go away
+    if (ft_strlook_char(a[j], '=') && !ft_strexact_abs(a[j - 1], "echo")) //just being carefull, but i think can go away
     {
         tkn->en = 4;
         *i += 1;

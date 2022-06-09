@@ -115,6 +115,7 @@ t_args *ft_cmd_to_args(char *str);
 char	*ft_strldup(char *str, int l);
 char	*ft_strfdup(char **str, int f);
 bool 	ft_strlook(char *str, char *look);
+bool  	ft_strlook_char(char *str, char l);
 bool	ft_strexact(char *s1, char *s2);
 bool	ft_strexact_abs(char *s1, char *s2);
 
