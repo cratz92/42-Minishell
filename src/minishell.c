@@ -29,6 +29,7 @@ void init(t_minishell **shell)
 	char		*preprompt;
 
 	preprompt = get_preprompt();
+	cmd_buff = NULL;
 	while (1)
 	{
 		// read stdin
@@ -38,7 +39,7 @@ void init(t_minishell **shell)
 
 		if (!cmd_buff)
 		{
-			printf("NOCMD\n"); //segfault- because doesnt no read !cmd_buff
+			printf("NOCMD\n"); //segfault- because doesnt read !cmd_buff
 			break ;
 		}
 		add_history(cmd_buff);
@@ -48,12 +49,11 @@ void init(t_minishell **shell)
 
 		ft_validations(shell); //to discuss
 
-		// printf("CMDHEAD=%s\n", shell->head->cmd);
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
 		// printf("PRINTING\n\n");
-		// if ((*shell)->var != NULL)
-		// 	print_var((*shell)->var);
-		// print_tkn((*shell)->head);
+		if ((*shell)->var != NULL)
+			print_var((*shell)->var);
+		print_tkn((*shell)->head);
 
 		if (!ft_strncmp((*shell)->head->cmd, "ppvv", 5)) //: print variable list for debuggin
 		{
@@ -66,6 +66,7 @@ void init(t_minishell **shell)
 		{
 			printf("BREAKEXIT\n");
 			free_str(cmd_buff);
+			//more to do here, different args with exit.
 			break ;
 		}
 		else
@@ -103,18 +104,14 @@ void	init_shell(t_minishell **shell, char **envp)
 int main(int argc, char *argv[], char *envp[])
 {
 	struct termios	term;
-	int				ec;
 	t_minishell		*shell;
 
-	ec = 0; //to work on- different exit codes
 	if (argc != 1)
 	{
 		write(1, "plz initialize with ./minishell with no args\n", 45);
 		return (ERROR_127);
 	}
-
-	// init signals to handle ctrl-c/-backstab/-d
-	signal(SIGINT, handle_ctrlc);
+	signal(SIGINT, handle_ctrlc); // init signals to handle ctrl-c/-backstab/-d
 	if (tcgetattr(STDIN_FILENO, &term) != 0)
 	{
 		perror("tcgetattr() error");
@@ -125,14 +122,9 @@ int main(int argc, char *argv[], char *envp[])
 		term.c_lflag &= ~(ECHOCTL);
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	}
-
-	// main loop
 	init_shell(&shell, envp);
 	init(&shell);
-
-	// shutdown / cleanup
-	ec  = free_minishell(&shell);
-	return (ec);
+	return (free_minishell(&shell));
 }
 
 

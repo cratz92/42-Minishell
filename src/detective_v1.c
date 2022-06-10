@@ -27,6 +27,7 @@ void	ft_dquote(char **output, char c)
 		ft_dquote(output, c);
 }
 
+
 char	*ft_proceed(char **input)
 {
 	char	*output;

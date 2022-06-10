@@ -18,7 +18,7 @@ void	ft_parse_env(t_var **var, char *str)
 		return ;
 	i = 0;
 	while(str[i] != '=')
-		i++;	// printf("%d, ", i);
+		i++;
 	(*var)->name = ft_strldup(str, i);
 	j = ++i;
 	while (str[j] != 0)
