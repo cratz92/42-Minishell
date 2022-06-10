@@ -1,5 +1,24 @@
 #include "../include/minishell.h"
 
+char	*ft_strldupimp(char *str, int i, int j)
+{
+	char	*dest;
+	int		k;
+	
+	if (i == j)
+		return (0);
+	dest = malloc(sizeof(char) * (j - i) + 1);
+	if (dest == NULL)
+		return (0);
+	k = 0;
+	while(i <= j)
+	{
+		dest[k++] = str[i++];
+	}
+	dest[k] = 0;
+	return (dest);
+}
+
 char  *ft_strldup(char *str, int l)
 {
   char  *dest;

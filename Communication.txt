@@ -34,9 +34,9 @@
 
 (TO WORK ON THIS WEEK)
 9 June
--echo hello; echo hi = two different command-> command break on ;
+-echo hello; echo hi = two different command-> command break on ; (X)
 -independent groups of commands and redirections which can be separated by ; && ||
--environment variables: echo $HOME = /Users/V
+-environment variables: echo $HOME = /Users/V (X ready for parsing)
 -ev make sure that the environment variable doesn't have a digit
 -$?. This variable will save the exit status from the last executed function. In our case we can check this behaviour by typing
 -exit mssgs...

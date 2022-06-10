@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+
+
 void	safe_exit(t_minishell **shell, char *buff)
 {
 	if (buff)
@@ -41,6 +43,9 @@ int init(int argc, char *argv[], char *envp[])
 
 	shell = malloc(sizeof(t_minishell));
 	shell->var = NULL;
+	shell->env = init_parse_env(envp);
+	print_var(shell->env);
+
 	shell->ec = 0;
 	ec = shell->ec; //Working on now
 	preprompt = get_preprompt();
@@ -56,12 +61,13 @@ int init(int argc, char *argv[], char *envp[])
 			printf("NOCMD\n"); //segfault- because doesnt no read !cmd_buff
 			break ;
 		}
+
 		add_history(cmd_buff); //this should probably be the first thing after readline ¿no? //IF cmd_buff NULL NOT READING
 		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(&shell);
 
 		ft_validations(&shell); //to discuss
-		check_and_replace_if_variables(&shell->head, shell->var);
+		check_and_replace_if_variables(&shell);
 
 		// printf("CMDHEAD=%s\n", shell->head->cmd);
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
@@ -104,7 +110,7 @@ int init(int argc, char *argv[], char *envp[])
 	if (shell->var)
 		free_variables(&shell->var);
 	free_str(preprompt);
-	// free_minishell(&shell);
+	free_minishell(&shell);
 	return (ec);
 }
 
@@ -112,7 +118,7 @@ int main(int argc, char *argv[], char *envp[])
 {
 	struct termios	term;
 	int				ec;
-
+	
 	ec = 0; //initialize- working on exitcode now
 	if (argc != 1)
 	{

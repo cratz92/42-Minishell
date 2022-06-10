@@ -81,6 +81,7 @@ typedef struct 	s_minishell
 {
 	t_token		*head; //pointing to the first token
 	t_var		*var;
+	t_var		*env; //env variable
 	int			ec; //exitcode
 }				t_minishell;
 
@@ -113,6 +114,7 @@ t_args *ft_cmd_to_args(char *str);
 
 
 //newutils.c
+char	*ft_strldupimp(char *str, int i, int j);
 char	*ft_strldup(char *str, int l);
 char	*ft_strfdup(char **str, int f);
 bool 	ft_strlook(char *str, char *look);
@@ -136,11 +138,14 @@ t_token *ft_evaluate_args_to_token(t_args *a);
 
 //variables
 void	check_token_to_variables(t_minishell **shell);
-void	check_and_replace_if_variables(t_token **tkn, t_var *var);
+void	check_and_replace_if_variables(t_minishell **shell);
 
 
 //validation
 void	ft_validations(t_minishell **shell);
+
+//env
+t_var	*init_parse_env(char **env);
 
 //free
 void	free_variables(t_var **vars);
