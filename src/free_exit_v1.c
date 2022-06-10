@@ -74,13 +74,14 @@ int	free_minishell(t_minishell **shell)
 	t_minishell *s;
 	int			exitcode;
 
-	//MALLOC SEGFAULT BUG
 	s = *shell;
 	exitcode = s->ec;
 	if (s->head)
 		free_tokens(&s->head);
 	if (s->var)
 		free_variables(&s->var);
+	if (s->env)
+		free_variables(&s->env);
 	free(*shell);
 	(*shell) = NULL;
 	return (exitcode);

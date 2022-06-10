@@ -89,7 +89,7 @@ typedef struct 	s_minishell
 // minishell.c
 int main(int argc, char *argv[], char *envp[]);
 void handle_ctrlc(int sig);
-int init(int argc, char *argv[], char *envp[]);
+void init(t_minishell **import_shell);
 
 // execution.c
 void command_execution(char **cmd,char *envp[]);

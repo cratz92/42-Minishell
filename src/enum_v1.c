@@ -21,11 +21,11 @@ t_token *ft_evalute_single_token(char **a, int *i)
     tkn = init_tkn(a[*i]);
     if (ft_strlook_char(tkn->cmd, '=')) //&& !ft_strexact_abs(a[*i - 1], "echo") -just being carefull, but i think can go away
         tkn->en = 4;
-    else if (tkn->cmd == ';')
+    else if (tkn->cmd[0] == ';')
         tkn->en = 5;
-    else if (tkn->cmd == '|')
+    else if (tkn->cmd[0] == '|')
          tkn->en = 1;
-    else if (tkn->cmd == '<' || tkn->cmd == '>')
+    else if (tkn->cmd[0] == '<' || tkn->cmd[0] == '>')
         tkn->en = 2; //<< >> can be added if needed
     else
         tkn->en = 3;
