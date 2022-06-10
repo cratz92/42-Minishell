@@ -51,9 +51,17 @@ char	*ft_proceed(char **input)
 			}
 			break;
 		}
-		if (**input != '"' && **input != '\'') //&& **input != ';'
+		if (**input == ';')
+		{
+			if (output[i - 1] == 0) 
+			{
+				output[i++] = **input;
+				(*input)++;
+			}
+			break;
+		}
+		if (**input != '"' && **input != '\'')
 			output[i++] = **input;
-		// if (**input == ';) break
 		else if (**input == '"' || **input == '\'')
 		{
 			c = **input;
@@ -106,5 +114,7 @@ t_args	*ft_cmd_to_args(char *str)
 		targ->args[i] = malloc(sizeof(char) * ft_strlen(str));
 		targ->args[i++] = ft_proceed(&str);
 	}
+	// print_targs(targ);
+	// printf("--\n");
 	return (targ);
 }

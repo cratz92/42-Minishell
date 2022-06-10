@@ -53,7 +53,7 @@ bool  ft_strlook_char(char *str, char l)
   return (false);
 }
 
-bool  ft_strlook(char *str, char *look)
+bool  ft_strlook(char *str, char *look) //giving some f problem
 {
   int i;
 
@@ -134,7 +134,7 @@ void  print_tkn(t_token *t)
   while(t->args[i])
   {
     if (t->args[i])
-      printf("%s\n", t->args[i]); //there is a problem here when we have more than 3....
+      printf("%s\n", t->args[i++]); //there is a problem here when we have more than 3....
   }
   if (t->next != NULL)
   {

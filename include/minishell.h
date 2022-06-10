@@ -39,6 +39,7 @@ typedef enum	s_type
 	IS_RDR, //riderection
 	IS_CMD, //command
 	IS_VAR, //variable
+	IS_COLON, //;
 }				t_type;
 
 

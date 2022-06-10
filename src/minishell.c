@@ -56,40 +56,35 @@ int init(int argc, char *argv[], char *envp[])
 			printf("NOCMD\n"); //segfault- because doesnt no read !cmd_buff
 			break ;
 		}
-		
-		// ft_cmd_to_args(cmd_buff);
-		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		add_history(cmd_buff); //this should probably be the first thing after readline ¿no? //IF cmd_buff NULL NOT READING
-		print_tkn(shell->head);
-
+		shell->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(&shell);
 
-		// ft_validations(&shell); //to discuss
-		// check_and_replace_if_variables(&shell->head, shell->var);
+		ft_validations(&shell); //to discuss
+		check_and_replace_if_variables(&shell->head, shell->var);
 
-		// // printf("CMDHEAD=%s\n", shell->head->cmd);
-		// /*printing to see whats happening- TOKENS ARE READY to be parsed */
-		// // printf("PRINTING\n\n");
-		// // if (shell->var != NULL)
-		// // 	print_var(shell->var);
-		print_tkn(shell->head);
+		// printf("CMDHEAD=%s\n", shell->head->cmd);
+		/*printing to see whats happening- TOKENS ARE READY to be parsed */
+		// printf("PRINTING\n\n");
+		// if (shell->var != NULL)
+		// 	print_var(shell->var);
+		// print_tkn(shell->head);
 
-		// printf("Pcomplete\n");
-		// if (!ft_strncmp(shell->head->cmd, "ppvv", 5)) //: print variable list for debuggin
-		// {
-		// 	if (shell->var)
-		// 		print_var(shell->var);
-		// 	else
-		// 		printf("variable list empty\n");	
-		// }
-		// if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
-		// {
-		// 	printf("BREAKEXIT\n"); //printf because sometimes does not break the while loop
-		// 	free_str(cmd_buff);
-		// 	break ;
-		// }
-		// else
-		// 	printf("%s ≠ exit", shell->head->cmd);
+		if (!ft_strncmp(shell->head->cmd, "ppvv", 5)) //: print variable list for debuggin
+		{
+			if (shell->var)
+				print_var(shell->var);
+			else
+				printf("variable list empty\n");	
+		}
+		if (!ft_strncmp(shell->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
+		{
+			printf("BREAKEXIT\n"); //printf because sometimes does not break the while loop
+			free_str(cmd_buff);
+			break ; //go to ft_exit_cmd
+		}
+		else
+			printf("%s ≠ exit", shell->head->cmd);
 
 		// parse args
 		// parse_args(cmd_buff, envp);
@@ -102,9 +97,9 @@ int init(int argc, char *argv[], char *envp[])
 
 		// execute parsed args
 
-		// free_str(cmd_buff);
-		// if (shell->head) //but this doesnt always consider
-		// 	free_tokens(&shell->head);
+		free_str(cmd_buff);
+		if (shell->head)
+			free_tokens(&shell->head);
 	}
 	if (shell->var)
 		free_variables(&shell->var);

@@ -1,36 +1,45 @@
 #include "../include/minishell.h"
 
-t_token *ft_evalute_single_token(char **a, int *i)
+t_token *init_tkn(char *str)
 {
-    int     j;
-    int     k;
     t_token *tkn;
 
-    j = *i;
-    k = 0;
     tkn = malloc(sizeof(t_token));
     tkn->cmd = NULL;
     tkn->args = NULL;
+    tkn->next = NULL;
     tkn->args = malloc(sizeof(1000));
-    tkn->cmd = a[j];
-    if (ft_strlook_char(a[j], '=') && !ft_strexact_abs(a[j - 1], "echo")) //just being carefull, but i think can go away
-    {
+    tkn->cmd = str;
+    return (tkn);
+}
+
+t_token *ft_evalute_single_token(char **a, int *i)
+{
+    int     k;
+    t_token *tkn;
+
+    tkn = init_tkn(a[*i]);
+    if (ft_strlook_char(tkn->cmd, '=')) //&& !ft_strexact_abs(a[*i - 1], "echo") -just being carefull, but i think can go away
         tkn->en = 4;
-        *i += 1;
-        return (tkn);
-    }
-    else if (a[j][0] == '|')
-        tkn->en = 1;
-    else if (a[j][0] == '<' || a[j][0] == '>')
-        tkn->en = 2;
+    else if (tkn->cmd == ';')
+        tkn->en = 5;
+    else if (tkn->cmd == '|')
+         tkn->en = 1;
+    else if (tkn->cmd == '<' || tkn->cmd == '>')
+        tkn->en = 2; //<< >> can be added if needed
     else
         tkn->en = 3;
-    j++;
-    if (ft_strlook(a[j - 1], "<>|") != 1)
-        while (a[j] && ft_strlook(a[j], "<>|") != 1)
-            tkn->args[k++] = a[j++];
+    *i += 1;
+    if (ft_strlook(tkn->cmd, "<>|;"))
+        return (tkn);
+    k = 0;
+    while (a[*i] && !ft_strlook(a[*i], "<>|;"))
+    {
+        tkn->args[k] = malloc(sizeof(char) * ft_strlen(a[*i]));
+        tkn->args[k++] = a[*i];
+        *i += 1;
+    }
     tkn->args[k] = 0;
-    *i = j;
     return (tkn);
 }
 
@@ -49,7 +58,9 @@ t_token *ft_evaluate_args_to_token(t_args *a)
     tkn = NULL;
     while (a->args[i])
     {
+        // printf("eval:%s\n", a->args[i]);
         tkn = ft_evalute_single_token(a->args, &i);
+        // printf("eval:%s\n", tkn->cmd);
         if (prev)
             prev->next = tkn;
         tkn->prev = prev;
