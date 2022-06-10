@@ -111,7 +111,7 @@ int init(int argc, char *argv[], char *envp[])
 		free_variables(&shell->var);
 	free_str(preprompt);
 	free_minishell(&shell);
-	return (ec);
+	return (ec); //maybe return shell instead and free from main?
 }
 
 int main(int argc, char *argv[], char *envp[])

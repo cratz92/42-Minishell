@@ -45,7 +45,6 @@ void	free_array(char **arr)
 	cpy = NULL;
 }
 
-
 void	free_tokens(t_token **tokens)
 {
 	t_token	*t;
@@ -70,20 +69,18 @@ void	free_tokens(t_token **tokens)
 	(*tokens) = NULL;
 }
 
-
 int	free_minishell(t_minishell **shell)
 {
 	t_minishell *s;
 	int			exitcode;
 
+	//MALLOC SEGFAULT BUG
 	s = *shell;
-
 	exitcode = s->ec;
 	if (s->head)
 		free_tokens(&s->head);
 	if (s->var)
 		free_variables(&s->var);
-	//MALLOC SEGFAULT BUG
 	free(*shell);
 	(*shell) = NULL;
 	return (exitcode);

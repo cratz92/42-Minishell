@@ -26,8 +26,6 @@ void	ft_parse_env(t_var **var, char *str)
 	(*var)->content = ft_strldupimp(str, i, j);
 }
 
-
-
 t_var	*init_parse_env(char **env)
 {
 	t_var	*vhead;
@@ -37,7 +35,6 @@ t_var	*init_parse_env(char **env)
 	int		j;
 
 	i = 0;
-	// printf("HERE\n\n");
 	malloc_tvar(&vhead);
 	ft_parse_env(&vhead, env[i]);
 	v2 = NULL;

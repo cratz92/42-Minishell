@@ -43,8 +43,6 @@ char	*var_for_content(char **str, t_var *var)
 	return (content);
 }
 
-
-
 char	*change_dollar_for_money(char *str, t_minishell *shell)
 {
 	int		i;

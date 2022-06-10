@@ -126,6 +126,8 @@ bool	ft_strexact_abs(char *s1, char *s2)
 	return (true);
 }
 
+
+
 //printing utils for debugging
 void  print_targs(t_args *a)
 {
@@ -161,7 +163,6 @@ void  print_tkn(t_token *t)
     print_tkn(t->next);
   }
 }
-
 
 void  print_var(t_var *v)
 {
