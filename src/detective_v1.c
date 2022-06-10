@@ -27,60 +27,74 @@ void	ft_dquote(char **output, char c)
 		ft_dquote(output, c);
 }
 
+static void	ft_proceed_check_two(char **input, char *output, int *i)
+{
+	char	c;
+
+	c = **input;
+	(*input)++;
+	while (**input != c && **input)
+	{
+		output[(*i)++] = **input;
+		(*input)++;
+	}
+	if (**input == c)
+		(*input)++;
+	else 
+	{
+		ft_dquote(&output, c);
+		*i = ft_strlen(output);
+	}
+}
+
+static int	ft_proceed_check_one(char **input, char *output, int *i)
+{
+	if (**input == '>' || **input == '<' || **input == '|')
+	{
+		if (output[*i - 1] == 0) 
+		{
+			output[(*i)++] = **input;
+			(*input)++;
+			if (output[*i - 1] == **input)
+			{
+				output[(*i)++] = **input;
+				(*input)++;
+			}
+		}
+		return (1);
+	}
+	if (**input == ';')
+	{
+		if (output[*i - 1] == 0) 
+		{
+			output[(*i)++] = **input;
+			(*input)++;
+		}
+		return (1);
+	}
+	return (0);
+}
 
 char	*ft_proceed(char **input)
 {
 	char	*output;
 	int		i;
-	char	c;
 
-	output = malloc(sizeof(char) * ft_strlen(*input) + 1); //Later need to remalloc if want to make it perfect
+	output = malloc(sizeof(char) * ft_strlen(*input) + 1);
 	i = 0;
-	while (**input) //mulinette 25 lines max
+	while (**input)
 	{
-		if (**input == '>' || **input == '<' || **input == '|')
-		{
-			if (output[i - 1] == 0) 
-			{
-				output[i++] = **input;
-				(*input)++;
-				if (output[i - 1] == **input)
-				{
-					output[i++] = **input;
-					(*input)++;
-				}
-			}
+		if (ft_proceed_check_one(input, output, &i))
 			break;
-		}
-		if (**input == ';')
-		{
-			if (output[i - 1] == 0) 
-			{
-				output[i++] = **input;
-				(*input)++;
-			}
-			break;
-		}
 		if (**input != '"' && **input != '\'')
 			output[i++] = **input;
 		else if (**input == '"' || **input == '\'')
 		{
-			c = **input;
-			(*input)++;
-			while (**input != c && **input)
-			{
-				output[i++] = **input;
-				(*input)++;
-			}
-			if (**input == c)
-				(*input)++;
-			else 
-			{
-				ft_dquote(&output, c);
-				i = ft_strlen(output);
-			}
+			ft_proceed_check_two(input, output, &i);
 			if (**input == 32)
 				break;
+			else
+				(*input)--;
 		}
 		(*input)++;
 		if (**input == 32)
@@ -97,7 +111,6 @@ void	init_targs(t_args **arg)
 	(*arg)->nbr_endline = 0;
 	(*arg)->args = NULL;
 }
-
 
 t_args	*ft_cmd_to_args(char *str)
 {

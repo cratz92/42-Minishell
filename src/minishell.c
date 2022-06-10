@@ -51,9 +51,9 @@ void init(t_minishell **shell)
 
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
 		// printf("PRINTING\n\n");
-		if ((*shell)->var != NULL)
-			print_var((*shell)->var);
-		print_tkn((*shell)->head);
+		// if ((*shell)->var != NULL)
+		// 	print_var((*shell)->var);
+		// print_tkn((*shell)->head);
 
 		if (!ft_strncmp((*shell)->head->cmd, "ppvv", 5)) //: print variable list for debuggin
 		{
