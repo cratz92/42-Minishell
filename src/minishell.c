@@ -50,10 +50,10 @@ void init(t_minishell **shell)
 		ft_validations(shell); //to discuss
 
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
-		// printf("PRINTING\n\n");
-		// if ((*shell)->var != NULL)
-		// 	print_var((*shell)->var);
-		// print_tkn((*shell)->head);
+		printf("\nPRINTING MSSG\nAdding CMDS, Adding ARGS, TRY |;<<,\nAdding var=variables\n\n");
+		if ((*shell)->var != NULL)
+			print_var((*shell)->var);
+		print_tkn((*shell)->head);
 
 		if (!ft_strncmp((*shell)->head->cmd, "ppvv", 5)) //: print variable list for debuggin
 		{
@@ -69,11 +69,6 @@ void init(t_minishell **shell)
 			//more to do here, different args with exit.
 			break ;
 		}
-		else
-			printf("%s ≠ exit", (*shell)->head->cmd);
-
-		// parse args
-		// parse_args(cmd_buff, envp);
 
 		// command_execution(cmd_buff, envp);
 		// if (argc == 3)
@@ -96,6 +91,7 @@ void init(t_minishell **shell)
 void	init_shell(t_minishell **shell, char **envp)
 {
 	(*shell) = malloc(sizeof(t_minishell));
+	(*shell)->head = NULL;
 	(*shell)->var = NULL;
 	(*shell)->env = init_parse_env(envp);
 	(*shell)->ec = 0;
