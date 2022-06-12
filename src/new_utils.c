@@ -72,7 +72,7 @@ bool  ft_strlook_char(char *str, char l)
   return (false);
 }
 
-bool  ft_strlook(char *str, char *look) //giving some f problem
+bool  ft_strlook(char *str, char *look)
 {
   int i;
 

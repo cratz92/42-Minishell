@@ -43,18 +43,16 @@ void init(t_minishell **shell)
 			break ;
 		}
 		add_history(cmd_buff);
+
 		(*shell)->head = ft_evaluate_args_to_token(ft_cmd_to_args(cmd_buff)); 
 		check_token_to_variables(shell);
 		check_and_replace_if_variables(shell);
 
-		ft_validations(shell); //to discuss
-
 		/*printing to see whats happening- TOKENS ARE READY to be parsed */
-		printf("\nPRINTING MSSG\nAdding CMDS, Adding ARGS, TRY |;<<,\nAdding var=variables\n\n");
-		if ((*shell)->var != NULL)
-			print_var((*shell)->var);
-		print_tkn((*shell)->head);
-
+		// printf("\nPRINTING MSSG\nAdding CMDS, Adding ARGS, TRY |;<<,\nAdding var=variables\n\n");
+			// if ((*shell)->var != NULL)
+			// 	print_var((*shell)->var);
+		// print_tkn((*shell)->head);
 		if (!ft_strncmp((*shell)->head->cmd, "ppvv", 5)) //: print variable list for debuggin
 		{
 			if ((*shell)->var)
@@ -62,6 +60,7 @@ void init(t_minishell **shell)
 			else
 				printf("variable list empty\n");	
 		}
+
 		if (!ft_strncmp((*shell)->head->cmd, "exit", 5)) //: cmd_buff => shell->head->cmd
 		{
 			printf("BREAKEXIT\n");
@@ -70,14 +69,7 @@ void init(t_minishell **shell)
 			break ;
 		}
 
-		// command_execution(cmd_buff, envp);
-		// if (argc == 3)
-		// 	ft_pipe(cmd_buff, envp);
-		// if (argc == 4)
-		// 	redirection(cmd_buff, envp);
-
 		// execute parsed args
-
 
 
 		//free and restart loop
@@ -126,6 +118,7 @@ int main(int argc, char *argv[], char *envp[])
 
 /*
 IMPORTANT
+-SO: argument are parsed as token, now need to execute 
 
 
 */
